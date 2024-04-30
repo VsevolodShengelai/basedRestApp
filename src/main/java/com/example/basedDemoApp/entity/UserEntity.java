@@ -2,6 +2,8 @@ package com.example.basedDemoApp.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class UserEntity {
@@ -10,6 +12,13 @@ public class UserEntity {
     private long id;
     private String username;
     private String password;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<ToDoEntity> todos;
+
+    public List<ToDoEntity> getTodos() {
+        return todos;
+    }
 
     public UserEntity() {
     }
