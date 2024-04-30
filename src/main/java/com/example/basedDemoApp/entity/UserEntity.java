@@ -2,18 +2,33 @@ package com.example.basedDemoApp.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class UserEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String username;
     private String password;
 
-    public UserEntity() {
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<ToDoEntity> todos;
 
+    public List<ToDoEntity> getTodos() {
+        return todos;
+    }
+
+    public UserEntity() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -30,13 +45,5 @@ public class UserEntity {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 }
